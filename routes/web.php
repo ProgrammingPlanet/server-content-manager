@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function (){
+Route::get('/', function(){
     return view('User.home');
+})->name('index');
+
+Route::group(['prefix'=>'Apps'],function(){
+
+	Route::get('/Media-Player',function(){
+		return view('User.mediaplayer');
+	})->name('app.mediaplayer');
+
 });
+
+

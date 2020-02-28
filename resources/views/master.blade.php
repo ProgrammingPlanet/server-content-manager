@@ -6,6 +6,13 @@
 
 	<link rel="stylesheet" href="/assets/lib/css/bootstrap.min.css">
 
+	<style>
+		.no-ul:hover{
+			text-decoration: none;
+			color: default;
+		}
+	</style>
+
 	@stack('css')
 	
 	<script src="/assets/lib/js/jquery.min.js"></script>
@@ -16,17 +23,16 @@
 <body class="bg-light">
 	@csrf
 
-	<div class="container"> <!-- container-fluid -->
+	<div class="container-fluid"> <!-- container-fluid -->
 		
 		@include('header')
+		
 		<br><br><br>
-		<div class="container bg-white py-2 shadow">
-			
-			@yield('content')
 
-		</div>
+		@yield('content')
 
 	</div>
+	
 	<br><br>
 	
 	@stack('js')

@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-md fixed-top navbar-light bg-primary">
     <div class="container">
-        <a href="#" class="navbar-brand">Brand</a>
+        <a href="{{route('index')}}" class="navbar-brand">Server</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
