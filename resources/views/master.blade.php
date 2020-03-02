@@ -7,9 +7,12 @@
 	<link rel="stylesheet" href="/assets/lib/css/bootstrap.min.css">
 
 	<style>
-		.no-ul:hover{
+		.no-ul, .no-ul:hover{
 			text-decoration: none;
-			color: default;
+			color: inherit; /* make color default */
+		}
+		.pointer:hover{
+			cursor: pointer;
 		}
 	</style>
 
@@ -18,10 +21,9 @@
 	<script src="/assets/lib/js/jquery.min.js"></script>
 	<script src="/assets/lib/js/popper.min.js"></script>
 	<script src="/assets/lib/js/bootstrap.min.js"></script>
-
+	<script>const csrf = '{{ csrf_token() }}'</script>
 </head>
 <body class="bg-light">
-	@csrf
 
 	<div class="container-fluid"> <!-- container-fluid -->
 		
@@ -36,5 +38,6 @@
 	<br><br>
 	
 	@stack('js')
+	
 </body>
 </html>

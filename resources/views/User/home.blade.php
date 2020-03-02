@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3 col-sm-4 p-2 mx-auto border bg-light">
-				<a href="{{route('app.mediaplayer')}}" class="no-ul"> 
+				<a href="{{route('app.mp.home')}}" class="no-ul"> 
 				<div class="col-8 mx-auto">
 					<img src="/assets/images/icons/player.png" class="img-fluid">
 				</div>
