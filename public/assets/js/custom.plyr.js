@@ -30,19 +30,20 @@ function ChangeUrl(url, title = '')
 
 function play_media(source)
 {
-    var path = location.href.split('?pl=')[0];
-    ChangeUrl(location.href.split('?pl=')[0]+'?pl='+source.id, source.title);
+    var path = location.href.split('?pl=');
+
+    // console.log(path);
+
+    ChangeUrl(path[0]+'?pl='+source.id, source.title);
     $('#mediatitle').text(source.title);
     $('#viewcount').text(source.views);
     $('#uploadtime').text(source.uploaded_at);
 
     player.source = source;
-    try{
-        player.play();
-    }
-    catch(err){
-        console.log('execptipn: '+err.message);
-    }
+
+    player.play();
+
+    // setTimeout(()=> {player.play()}, 1000);
     
 }
 
@@ -55,6 +56,7 @@ function fetch_and_play_media(media_id)
         success:function(result){
             if(result.status){
                 // console.log(result);
+                // setTimeout(play_media, 3000, result.data);
                 play_media(result.data);
             }
             else{
@@ -85,7 +87,7 @@ function show_all_media(medias)
                         <small>${media.owner}</small>
                     </div>
                     <small>
-                        ${media.uploaded_at} • ${media.size}
+                        ${media.uploaded_at} &nbsp;•&nbsp; ${formatBytes(media.size)}
                     </small>
                 </div>
             </div>`;
@@ -106,7 +108,7 @@ function fetch_all_media()
                 show_all_media(result.data);
             }
             else{
-                console.log(result.msg);
+                console.log('Error: '+result.msg);
             }
         },
         error:function(responce){

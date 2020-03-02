@@ -25,16 +25,20 @@ class Home extends Controller
 		$tracks = [];
 		$thumbnail = $medias[0]->id.'.jpg';
 
-		foreach($medias->toArray() as $media)
+		foreach($medias as $media)
 		{
-			$tmp = explode('/',$media['content_type']);
-			$path = '/content/'.$tmp[0].'s/'.$media['id'].'.'.$media['quality'].'.'.$tmp[1];
+			$tmp = explode('/',$media->content_type);
+			$path = '/content/'.$tmp[0].'s/'.$media->id.'.'.$media->quality.'.'.$tmp[1];
 			$sources[] = [
 							'src'=> $path,
-							'type'=> $media['content_type'],
-	                		'size'=> $media['quality']
+							'type'=> $media->content_type,
+	                		'size'=> $media->quality
 					];
+			$media->views = $media->views + 1;
+			$media->save();
 		}
+
+		 //save increased view
 
 		foreach($captions->toArray() as $caption)
 		{
@@ -62,7 +66,7 @@ class Home extends Controller
 	        'poster'=> $thumbnail,
 	        'sources'=> $sources,
 	        'tracks'=> $tracks,
-	        'views' => 560,
+	        'views' => $medias[0]->views,
 	        'uploaded_at'=> ($medias[0]->uploaded_at->format('h:i A, M d Y'))
 	    ];
 
@@ -78,6 +82,14 @@ class Home extends Controller
 		
 		if(!$medias) return ['status'=>0,'msg'=>'list is empty'];
 
-		return ['status'=>1,'data'=>$medias->toArray()];
+		$results = [];
+
+		foreach($medias as $media)
+		{
+			$tmp = $media->toArray();
+			$tmp['uploaded_at'] = $media->uploaded_at->diffForHumans();
+			$results[] = $tmp;
+		}
+		return ['status'=>1,'data'=>$results];
 	}
 }
