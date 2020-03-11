@@ -12,9 +12,11 @@
 		
 			<div class="row bg-white">
 
-				<div class="col-lg-8 col-md-8 p-2 ">
-					<div class="col-12 px-0 ">
-						<video poster="" id="player" controls crossorigin playsinline></video>
+				<div class="col-lg-8 col-md-8 p-2">
+					<div class="col-12 px-0 embed-responsive embed-responsive-16by9">
+						<div class="embed-responsive-item">
+							<video id="player" controls crossorigin playsinline></video>
+						</div>
 					</div>
 					<div class="col-12 mt-2 py-2 ">
 						<h5 class="" id="mediatitle">

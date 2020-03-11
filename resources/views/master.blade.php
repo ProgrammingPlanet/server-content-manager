@@ -21,6 +21,8 @@
 	<script src="/assets/lib/js/jquery.min.js"></script>
 	<script src="/assets/lib/js/popper.min.js"></script>
 	<script src="/assets/lib/js/bootstrap.min.js"></script>
+	<script src="/assets/lib/js/sweetalert2.min.js"></script>
+
 	<script>const csrf = '{{ csrf_token() }}'</script>
 </head>
 <body class="bg-light">

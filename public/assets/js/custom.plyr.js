@@ -41,22 +41,18 @@ function play_media(source)
 
     player.source = source;
 
-    player.play();
-
-    // setTimeout(()=> {player.play()}, 1000);
-    
+    player.play();    
 }
 
-function fetch_and_play_media(media_id)
+function fetch_and_play_video(media_id)
 {
     $.ajax({
-        url: 'Media-Player/fetchmedia',
+        url: 'Video-Player/fetch',
         type: 'POST',
         data: {id: media_id, _token: csrf},
         success:function(result){
             if(result.status){
                 // console.log(result);
-                // setTimeout(play_media, 3000, result.data);
                 play_media(result.data);
             }
             else{
@@ -71,15 +67,14 @@ function fetch_and_play_media(media_id)
 
 // <img class="avatar" src="img/one.jpg" alt="Not Found" onerror=this.src="img/undefined.jpg">
 
-function show_all_media(medias)
+function show_all_videos(medias)
 {
     $('#allmedias').html('');
     $.each(medias,function(i,media){
-        const type = media.content_type.split('/')[0];
         const el = `
-            <div class="row my-2 border pointer" onclick="fetch_and_play_media('${media.id}')">
+            <div class="row my-2 border pointer" onclick="fetch_and_play_video('${media.id}')">
                 <div class="col-3 p-2">
-                    <img src="/assets/images/icons/${type}.png" class="img-thumbnail">
+                    <img src="/assets/images/icons/video.png" class="img-thumbnail">
                 </div>
                 <div class="col-9 mt-2">
                     <div class="text-truncate">
@@ -87,7 +82,7 @@ function show_all_media(medias)
                         <small>${media.owner}</small>
                     </div>
                     <small>
-                        ${media.uploaded_at} &nbsp;•&nbsp; ${formatBytes(media.size)}
+                        ${media.uploaded_at_ago} &nbsp;•&nbsp; ${media.views} views
                     </small>
                 </div>
             </div>`;
@@ -96,16 +91,17 @@ function show_all_media(medias)
         
 }
 
-function fetch_all_media()
+function fetch_all_videos()
 {
     $.ajax({
-        url: 'Media-Player/fetchallmedia',
+        url: 'Video-Player/fetchallmedia',
         type: 'POST',
         data: {_token: csrf},
         success:function(result){
+            console.log(result);
             if(result.status){
                 // console.log(result);
-                show_all_media(result.data);
+                show_all_videos(result.data);
             }
             else{
                 console.log('Error: '+result.msg);
@@ -124,9 +120,9 @@ $(document).ready(function() {
 
     var def = location.href.split('?pl=')[1] || '';
 
-    fetch_and_play_media(def);
+    fetch_and_play_video(def);
 
-    fetch_all_media();
+    fetch_all_videos();
 
 /*
 

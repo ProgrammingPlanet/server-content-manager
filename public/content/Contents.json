@@ -1,0 +1,18 @@
+
+{
+	"video": {
+		"ContentType": ["mp4","ogg","mkv"],
+		"Qulaity": ["240","576","720","1080","1440"]
+	},
+	"audio": {
+		"ContentType": ["mp3","ogg","wav"],
+		"Qulaity": ["128","256","320"]
+	},
+	"captions": {
+		"ContentType": ["vtt"]
+	},
+	"documents": {
+		"ContentType": ["docx","doc","xls","pdf"]
+	}
+	
+}
