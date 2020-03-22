@@ -19,6 +19,6 @@ class Content extends Model
 
     public function audio()
     {
-        return $this->hasMany(Audio::class,'id');
+        return $this->hasOne(Audio::class,'id');
     }
 }

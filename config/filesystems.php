@@ -58,6 +58,8 @@ return [
         'content' => [
             'driver' => 'local',
             'root'   => public_path('content'),
+            'url'   => env('APP_URL').'/public/content',
+            'visibility' => 'public'
         ],
 
         's3' => [
@@ -67,6 +69,14 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+        ],
+
+	    'gdrive' => [
+            'driver' => 'google',
+            'clientId' => env('GOOGLE_CLIENT_ID',NULL),
+            'clientSecret' => env('GOOGLE_CLIENT_SECRET',NULL),
+            'refreshToken' => env('GOOGLE_REFRESH_TOKEN',NULL),
+            'folderId' => env('GOOGLE_DRIVE_FOLDER_ID',NULL),
         ],
 
     ],

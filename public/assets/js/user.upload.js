@@ -17,8 +17,8 @@ function init(contents)
 	$.each(contents,function(ctype,cobj){
 		$.each(cobj, function(key,values){
 			$.each(values, function(i,v){
-				$('#'+ctype+' #'+key).append(`<option value="${v}">${v}</option>`);
-				// console.log(ctype,key)
+				$('#'+ctype+key).append(`<option value="${v}">${v}</option>`);
+				// console.log(ctype,key);
 			});
 		});
 	});
@@ -65,7 +65,7 @@ function startupload(formid)
         cache: false,
         processData: false,
         success: function(data, status, xhr) {
-            // notify('success','Upload Has Been Completed.','Finished');
+            console.log(data)
             if(!data.status) notify('error',data.msg);
             else
             {

@@ -19,6 +19,11 @@ trait Functions
         return ['status'=>1,'msg'=>'Validations Passed!'];
 	}
 
+	public function SecsToHMS(int $secs)
+	{
+		return sprintf('%02d:%02d:%02d',($secs/3600),($secs/60%60),$secs%60);
+	}
+
 	function StoreContent($file,$name,$path,$exts)
 	{
 		$disk = 'content';

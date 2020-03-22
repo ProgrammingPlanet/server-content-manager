@@ -1,0 +1,31 @@
+
+html { font-size: 0.6rem; }
+
+@media (min-width: 576px) {
+    html { font-size: 0.7rem; }
+}
+@media (min-width: 768px) {
+    html { font-size: 0.8rem; }
+}
+@media (min-width: 992px) {
+    html { font-size: 1rem; }
+}
+@media (min-width: 1200px) {
+    html { font-size: 1.1rem; }
+}
+
+.fac{
+	color: #8c8c8c;
+}
+.pointer{
+	cursor: pointer;
+}
+.pointer:active{
+	color: blue;
+}
+
+#curline{
+	word-wrap: break-word;
+	text-shadow: 1px 1px #c2c2c2;
+	font-family: sans-serif;
+}

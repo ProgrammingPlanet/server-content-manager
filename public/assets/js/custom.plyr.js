@@ -35,7 +35,7 @@ function play_media(source)
     // console.log(path);
 
     ChangeUrl(path[0]+'?pl='+source.id, source.title);
-    $('#mediatitle').text(source.title);
+    $('#videotitle').text(source.title);
     $('#viewcount').text(source.views);
     $('#uploadtime').text(source.uploaded_at);
 

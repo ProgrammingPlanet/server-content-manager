@@ -13,37 +13,71 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-10 col-sm-12 p-2 mx-auto border bg-light">
+			<div class="col-md-10 col-sm-12 p-2 mx-auto border bg-light my-3">
 				<h4 class="text-center my-3">Add Video Content</h4>
-				<form id="videoform" data-url="{{route('user.upload.video')}}">
-				<div class="row mt-4" id="video">
-					<div class="col-5 mx-auto mb-3">
-						Video Title: <input class="form-control" name="title">
+				<form class="container" id="videoform" data-url="{{route('user.upload.video')}}">
+				<div class="row mt-4 mx-0" id="video">
+					<div class="col-6 mx-auto mb-3">
+						Title: <input class="form-control" name="title">
 					</div>
-					<div class="col-5 mx-auto mb-3">
-						Video file: <input type="file" class="form-control" name="VideoFile" style="padding:3px;">
+					<div class="col-6 mx-auto mb-3">
+						Video file: <input type="file" class="form-control" name="ContentFile" style="padding:3px;">
 					</div>
-					<div class="col-5 mx-auto">
-						Video Content Type: <select class="form-control" name="ctype" id="ContentType">
+					<div class="col-6 mx-auto">
+						Type: <select class="form-control" name="ctype" id="videoContentType">
 							<option value="select">Select</option>
 						</select>
 					</div>
-					<div class="col-5 mx-auto">
-						Qulaity: <select class="form-control" name="quality" id="Qulaity">
+					<div class="col-6 mx-auto">
+						Qulaity: <select class="form-control" name="quality" id="videoQulaity">
 							<option value="select">Select</option>
 						</select>
 					</div>	
 				</div>
-				</form>
+				</form>	
 				<div class="row mt-4 mb-2">
 					<div class="mx-auto">
 						<button class="btn btn-primary d-inline-block" onclick="submit('videoform')">
 							submit
 						</button>
 					</div>
-				</div>		
+				</div>
 			</div>
 
+			<div class="col-md-10 col-sm-12 p-2 mx-auto border bg-light my-3">
+				<h4 class="text-center my-3">Add Music Content</h4>
+				<form id="audioform" data-url="{{route('user.upload.audio')}}">
+				<div class="row mt-4 mx-0" id="audio">
+					<div class="col-5 mx-auto mb-3">
+						Music Title: <input class="form-control" name="title">
+					</div>
+					<div class="col-5 mx-auto mb-3">
+						Artist: <input class="form-control" placeholder="optional" name="artist">
+					</div>
+					<div class="col-5 mx-auto mb-3">
+						Album: <input class="form-control" placeholder="optional" name="album">
+					</div>
+					<div class="col-5 mx-auto mb-3">
+						Year: <input class="form-control" placeholder="optional" name="year">
+					</div>
+					<div class="col-5 mx-auto mb-3">
+						Music file: <input type="file" class="form-control" name="ContentFile" style="padding:3px;">
+					</div>
+					<div class="col-5 mx-auto mb-3">
+						Type: <select class="form-control" name="ctype" id="audioContentType">
+							<option value="select">Select</option>
+						</select>
+					</div>
+				</div>
+				</form>	
+				<div class="row mt-4 mb-2">
+					<div class="mx-auto">
+						<button class="btn btn-primary d-inline-block" onclick="submit('audioform')">
+							submit
+						</button>
+					</div>
+				</div>	
+			</div>
 		</div>
 	</div>
 

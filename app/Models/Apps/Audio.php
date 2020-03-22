@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Audio extends Model
 {
-    protected $table = 'Videos';
+    protected $table = 'Audios';
     public $timestamps = false;
 	public $incrementing = false;		//to avoid 0 primary key
-    protected $guarded = [];
+    protected $fillable = ['id','artist','album','year','type','duration','size'];
+
+    protected $attributes = ['artist'=>'unknown','album'=>'unknown','year'=>'unknown']; //default column values
 
     public function info()
     {
@@ -18,6 +20,6 @@ class Audio extends Model
 
     public function lyrics()
     {
-        return $this->hasMany(Caption::class,'id');
+        return $this->hasOne(Caption::class,'id');
     }
 }
