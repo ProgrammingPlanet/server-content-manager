@@ -20,17 +20,17 @@
   	{
   		if(cmd=='play-pause')
   		{
-            var btnobj = $('#ppbtn');
+        var btnobj = $('#ppbtn');
   			if(player.paused == true)
   			{
   				player.play();
   				btnobj.find('i').removeClass('fa-play').addClass('fa-pause');
-                $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-play-circle').addClass('fa-pause-circle');
+          $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-play-circle').addClass('fa-pause-circle');
   			}
   			else{
   				player.pause();
   				btnobj.find('i').removeClass('fa-pause').addClass('fa-play');
-                $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-pause-circle').addClass('fa-play-circle');
+          $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-pause-circle').addClass('fa-play-circle');
   			}
   		}
   		if(cmd=='fwd')
@@ -53,19 +53,19 @@
   			currenttime = player.currentTime;
   		}
   		percent = (currenttime/player.duration)*100;
-		if(percent >= 100)
-		{
-			player.pause();
-            $('#ppbtn').find('i').removeClass('fa-pause').addClass('fa-play');
-            $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-pause-circle').addClass('fa-play-circle');
-			player.currentTime = 0;
-            playing = null;
-			progress.css('width','0%');
-		}
-		else{
-			curtime.text(formatseconds(currenttime));
-			progress.css('width',percent+'%');
-		}
+  		if(percent >= 100)
+  		{
+  			player.pause();
+        $('#ppbtn').find('i').removeClass('fa-pause').addClass('fa-play');
+        $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-pause-circle').addClass('fa-play-circle');
+  			player.currentTime = 0;
+        playing = null;
+  			progress.css('width','0%');
+  		}
+  		else{
+  			curtime.text(formatseconds(currenttime));
+  			progress.css('width',percent+'%');
+  		}
   	}
 
     function fetch_and_play(musicid)
@@ -102,6 +102,16 @@
         playing = musicid;
     }
 
+    function init(musicid)
+    {
+      play(musicid);
+      setInterval(function(){
+              updateplayer();
+              tottime.text(formatseconds(player.duration));
+        },1000);
+
+    }
+
 
   	var player = $('#audio')[0];
   	var curtime = $('#curtime');
@@ -121,10 +131,7 @@
             updateplayer(player.duration * (dual/100))
         });
 
-        setInterval(function(){
-            updateplayer();
-            tottime.text(formatseconds(player.duration)); 
-        },1000);
+        
 
         $('#songlist').DataTable({
             aoColumnDefs: [{
@@ -134,12 +141,20 @@
             processing: true,
             serverSide: true,
             ajax:{
-                    url: 'Music-Player/fetchall',
-                    type: 'POST',
-                    data:{ _token: csrf}
-                   },
-            rowId: function(a) {return a.id;},
+                url: 'Music-Player/fetchall',
+                type: 'POST',
+                data:{ _token: csrf}
+            },
             columns: [{'data':'Title'},{'data':'Duration'},{'data':'Upload Time'},{'data':'Options'}],
+            rowId: function(a) {return a.id;},
+            initComplete:function(settings,json){ //first time load
+                if(json.data[0].id)
+                  init(json.data[0].id);
+            },
+            drawCallback:function(settings){  //everytime table loads
+                $('#'+playing).addClass('bg-warning');
+                $('#'+playing+' td:nth-child(4) i:nth-child(1)').removeClass('fa-play-circle').addClass('fa-pause-circle');
+            }
         });
 
         player.textTracks[0].oncuechange = function() {
@@ -150,31 +165,10 @@
             }
         }
 
-        /*$('#playlist').on('click','tr',function(e){
-            play(this.id);
-        });*/
-
     });
 
 
         
 
-    /*$.ajax({
-        url: 'Music-Player/fetchall',
-        type: 'POST',
-        data: {_token: csrf},
-        success:function(result){
-            console.log(result);
-        },
-        error:function(a,b,c){
-            console.log(a,b,c);
-        }
-    });*/
 
-    /*var song = {
-                source: {src: 'music/sample1.mp3', type: 'audio/mpeg'},
-                track: {src: 'subtitles/sample1.vtt', srclang:'en', label:'English'}
-            }; 
-
-    changeaudio(song);*/
 

@@ -4,26 +4,35 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\GdriveCloudDisk;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\Functions;
 
 class Test extends Controller
 {
-	use GdriveCloudDisk;
-
+	use Functions;
 	public function test(Request $request)
 	{
 		// echo $this->put();
-		$disk = $this->gdrive;
+		$disk = Storage::disk('content');
+
+		$token = 'EZZuXIfpZGYgo2RXelgG';
+
+
+		// print_r($disk->path('asc'));
+
+		// return $this->genratetoken();
+		return $this->validatetoken($token);
 
 		//upload on gdrive 
-			$file = $request->file('file');
-			$fhandle = fopen($file->getPathName(),'r+');//client file upload
+			// $file = $request->file('file');
+			// $fhandle = fopen($file->getPathName(),'r+');//client file upload
 			// $fhandle = fopen('/path/to/file','r+'); //local file upload
-			$path = 'images';
-			$name = 'test.'.$file->getClientOriginalExtension();
-			$x = $this->clientupload($fhandle,$path,$name); // return drive file obj
-			print_r($x);
+			// $path = 'images';
+			// $name = 'test.'.$file->getClientOriginalExtension();
+			// $x = $this->clientupload($fhandle,$path,$name); // return drive file obj
+			// print_r($x);
+
+
 		
 
 

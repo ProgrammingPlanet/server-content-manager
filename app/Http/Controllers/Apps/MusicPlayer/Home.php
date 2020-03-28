@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Apps\MusicPlayer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 use App\Models\Apps\Content;
-use Illuminate\Support\Carbon;
 
 use App\Traits\Functions;
 
 class Home extends Controller
 {
 	use Functions;
+
+	public $cdn;
+
+	function __construct()
+	{
+		$this->cdn = env('CDN_PATH','/cdn');
+	}
 
 	public function fetch(Request $request)
 	{
@@ -26,7 +33,7 @@ class Home extends Controller
 		$content->save(); //save increased view
 
 		$audio = $content->audio;
-		$audiopath = '/content/audios/'.$content->id.'.'.$audio->type;
+		$audiopath = "$this->cdn/audios/$content->id.$audio->type";
 
 		$lyrics = $audio->lyrics;
 
@@ -36,15 +43,17 @@ class Home extends Controller
 			$lyrics = (object) $lyrics;
 		}
 
-		$lyricspath = '/content/captions/'.$lyrics->id.'.'.$lyrics->lang.'.'.$lyrics->type;
+		$lyricspath = "$this->cdn/captions/$lyrics->id.$lyrics->lang.$lyrics->type";
+
+		$token = $this->genratetoken();
 		
 		$music = [
 					'source' => [
-							'src'	=> $audiopath,
+							'src'	=> "$audiopath/$token",
 							'type'	=> 'audio/'.$audio->type
 					],
 					'track' => [
-							'src'		=> $lyricspath,
+							'src'		=> "$lyricspath/$token",
 							'srclang'	=> $lyrics->lang,
 							'label'		=> $lyrics->lable
 					]

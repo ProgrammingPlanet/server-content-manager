@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::any('test-0',function(){
 	/*echo '<form action="/test" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="_token" value="'.csrf_token().'">
@@ -23,9 +24,19 @@ Route::any('test-0',function(){
 
 Route::any('test','User\Test@test');
 
+Route::any('tmpurl','User\Test@test')->name('tmpurl');
+
 Route::get('/', function(){
     return view('User.home');
 })->name('index');
+
+
+
+Route::group(['prefix'=>'cdn','namespace'=>'User'],function(){
+
+	Route::any('{dir}/{filename}/{token}','CDN@serveurl')->name('tmpurl');
+
+});
 
 Route::group(['prefix'=>'User'],function(){
 

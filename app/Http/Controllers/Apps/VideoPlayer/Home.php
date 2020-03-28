@@ -8,9 +8,19 @@ use Illuminate\Http\Request;
 use App\Models\Apps\Content;
 use Illuminate\Support\Carbon;
 
+use App\Traits\Functions;
 
 class Home extends Controller
 {
+	use Functions;
+
+	public $cdn;
+
+	function __construct()
+	{
+		$this->cdn = env('CDN_PATH','/cdn');
+	}
+
 	public function fetch(Request $request)
 	{
 		if(!$request->has('id') || $request->id=='') $request->id = 'abcdefghij';
@@ -23,11 +33,13 @@ class Home extends Controller
 		$tracks = [];
 		$thumbnail = $request->id.'.jpg';
 
+		$token = $this->genratetoken();
+
 		foreach($content->video as $video)
 		{
-			$path = '/content/videos/'.$content->id.'.'.$video->quality.'.'.$video->type;
+			$path = "$this->cdn/videos/$content->id.$video->quality.$video->type";
 			$sources[] = [
-							'src'=> $path,
+							'src'=> "$path/".$token,
 							'type'=> 'video/'.$video->type,
 	                		'size'=> $video->quality
 					];
@@ -38,9 +50,9 @@ class Home extends Controller
 
 		foreach($content->video->first()->caption as $caption)
 		{
-			$capt = $caption->id.'.'.$caption->lang.'.'.$caption->type;
+			$capt = "$this->cdn/captions/$caption->id.$caption->lang.$caption->type";
 			$tracks[] = [
-							'src'	=> '/content/captions/'.$capt,
+							'src'	=> "$capt/$token",
 							'kind'	=> 'captions',
 							'srclang'=> $caption->lang,
 			                'label'	=> $caption->lable
@@ -52,7 +64,7 @@ class Home extends Controller
 			$thumbnail = '/assets/images/default-video.jpg';
 		}
 		else{
-			$thumbnail = '/content/thumbnails/'.$content->id.'.jpg';
+			$thumbnail = "$this->cdn/thumbnails/$content->id.jpg/$token";
 		}
 
 		$Source = [

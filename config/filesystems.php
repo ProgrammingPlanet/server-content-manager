@@ -57,9 +57,7 @@ return [
 
         'content' => [
             'driver' => 'local',
-            'root'   => public_path('content'),
-            'url'   => env('APP_URL').'/public/content',
-            'visibility' => 'public'
+            'root'   => env('CONTENT_DISK_PATH',public_path('content'))
         ],
 
         's3' => [
