@@ -11,7 +11,7 @@
         "php": "^7.2",
         "bestmomo/nice-artisan": "^1.2",
         "fideloper/proxy": "^4.0",
-        "james-heinrich/getid3": "1.9.19",
+        "james-heinrich/getid3": "1.9.21",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",
